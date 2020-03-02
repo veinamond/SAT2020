@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd sources/simp
+rm ../../bin/MapleLCMDist
+make clean
+make rs
+cp glucose_static ../../bin/MapleLCMDist
+
+

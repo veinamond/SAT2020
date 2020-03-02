@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd sources/simp
+rm ../../bin/MapleLCMDistChrBt-DL-v3-f2-t-rc
+make clean
+make rs
+cp glucose_static ../../bin/MapleLCMDistChrBt-DL-v3-f2-t-rc
+

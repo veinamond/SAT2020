@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd sources/simp
+rm glucose_static ../../bin/MapleLCMDistChronoBT-v3
+make clean
+make rs
+cp glucose_static ../../bin/MapleLCMDistChronoBT-v3
+
