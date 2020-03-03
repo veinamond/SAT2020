@@ -81,26 +81,27 @@ def load_logs(pathname, title ="" ,xmin=0, tl = 5000, wide = False, filter=""):
                     j = j-1                
                 results[ind] = [h,v,cur_solved,par2,par2norm,ss,us]       
                         
-    report =list()
-    report.append(["Solver","SCR","PAR2", "PAR2-norm","SAT","UNSAT"])
-    for u in range(len(results)):            
-        report.append([results[u][0],str(results[u][2]),str(results[u][3]),str(results[u][4]),str(results[u][5]),str(results[u][6])])
-    #print(report)
-    cols = [0]*6
-    
-    for u in range(len(report)):            
-        for h in range(6):
-            if cols[h]<len(report[u][h]):
-                cols[h] = len(report[u][h])+3
-    
-    for u in range(len(report)):            
-        for h in range(6):
-            if len(report[u][h])<cols[h]:
-                report[u][h]=" "*(cols[h]-len(report[u][h]))+report[u][h]
-
-    with open(fn_rep,"w") as outfile:        
+    if filter == "":
+        report = list()
+        report.append(["Solver","SCR","PAR2", "PAR2-norm","SAT","UNSAT"])
+        for u in range(len(results)):            
+            report.append([results[u][0],str(results[u][2]),str(results[u][3]),str(results[u][4]),str(results[u][5]),str(results[u][6])])
+        #print(report)
+        cols = [0]*6
+        
         for u in range(len(report)):            
-            outfile.write(" ".join(report[u])+"\r\n")
+            for h in range(6):
+                if cols[h]<len(report[u][h]):
+                    cols[h] = len(report[u][h])+3
+        
+        for u in range(len(report)):            
+            for h in range(6):
+                if len(report[u][h])<cols[h]:
+                    report[u][h]=" "*(cols[h]-len(report[u][h]))+report[u][h]
+
+        with open(fn_rep,"w") as outfile:        
+            for u in range(len(report)):            
+                outfile.write(" ".join(report[u])+"\r\n")
 
     maxlen = 0
     for u in results:

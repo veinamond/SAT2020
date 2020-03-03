@@ -1,6 +1,6 @@
-                    Solver    SCR                  PAR2            PAR2-norm    SAT    UNSAT
-   MapleLCMDistChronoBT-f2    140    1886636.9460849485    4716.592365212371    140       95
-      MapleLCMDistChronoBT    138     1919714.453321826    4799.286133304565    138       98
-   MapleLCMDistChronoBT-v3    137    1914929.2237064706    4787.323059266177    137       95
-   MapleLCMDistChronoBT-f1    135    1952945.1948174483    4882.362987043621    135       96
-  MapleLCMDistChronoBT-fcm    133     1994130.063884272     4985.32515971068    133       95
+                     Solver    SCR                 PAR2            PAR2-norm    SAT    UNSAT
+       MapleLCMDistChronoBT    236    1919714.453321826    4799.286133304565    138       98
+    MapleLCMDistChronoBT-f2    235   1886636.9460849485    4716.592365212371    140       95
+    MapleLCMDistChronoBT-v3    232   1914929.2237064706    4787.323059266177    137       95
+    MapleLCMDistChronoBT-f1    231   1952945.1948174483    4882.362987043621    135       96
+   MapleLCMDistChronoBT-fcm    228    1994130.063884272     4985.32515971068    133       95
