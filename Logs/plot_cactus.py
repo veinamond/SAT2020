@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 
 plotmarkers = ["H","^","x","+","D","*","o","d","v",">"]
-def load_logfile(fn ):    
+def load_logfile(fn, tl=5000 ):    
     res = list()
     sname = ""
     total = 0
@@ -16,7 +16,9 @@ def load_logfile(fn ):
                 line = line.strip("\r\n ")              
                 p = line.split(" ")
                 if sname == "":
-                    sname = p[0]            
+                    sname = p[0]
+                if (float(p[2])>tl):
+                    p[3]="INDET"
                 if (p[3]!="INDET"):
                     res.append([float(p[2]),p[3]])
                     par2 = par2 + float(p[2])
@@ -25,20 +27,20 @@ def load_logfile(fn ):
                     if p[3]=="UNSAT":
                         unsat_solved = unsat_solved + 1 
                 else:
-                    par2 = par2 + float(p[2])*2
+                    par2 = par2 + tl*2
                         
               #res[p[1]] = [p[0],p[2],p[3]]
     par2norm = par2/total
     return sname,res, sat_solved,unsat_solved,par2,par2norm
 
 def load_logs(pathname, title ="" ,xmin=0, tl = 5000, wide = False, filter=""):
+    fn = pathname + pathname.split("/")[-2]+"_cactus_" +str(tl)
+    if filter!="":
+        fn = fn + "_"+filter
     if wide == True:
-        fn = pathname + pathname.split("/")[-2]+"_cactus_" +str(tl)+"_"+filter+"_wide.pdf"
-        #fn_svg= pathname + pathname.split("/")[-2]+"_cactus_" +str(tl)+filter+"_wide.svg"
-    else:
-        fn = pathname + pathname.split("/")[-2]+"_cactus_" +str(tl)+"_"+filter+".pdf"
-        #fn_svg = pathname + pathname.split("/")[-2]+"_cactus_" +str(tl)+filter+".svg"
-    fn_rep = pathname + pathname.split("/")[-2]+"_report_" +str(tl)+"_report"
+        fn = fn + "_wide"
+    fn = fn+".pdf"    
+    fn_rep = pathname + pathname.split("/")[-2]+"_" +str(tl)+"_report"
 
     files = glob.glob(pathname+"*log")    
     results = dict()
@@ -46,7 +48,7 @@ def load_logs(pathname, title ="" ,xmin=0, tl = 5000, wide = False, filter=""):
     for i in range(len(files)):
         u = files[i]
         print(str(u))
-        h,v_unfiltered,ss,us,par2,par2norm = load_logfile(u)        
+        h,v_unfiltered,ss,us,par2,par2norm = load_logfile(u,tl)        
         v=[]
         if filter!="":
             v = [g[0] for g in v_unfiltered if g[1]==filter]
@@ -81,7 +83,7 @@ def load_logs(pathname, title ="" ,xmin=0, tl = 5000, wide = False, filter=""):
                     j = j-1                
                 results[ind] = [h,v,cur_solved,par2,par2norm,ss,us]       
                         
-    if filter == "":
+    if (filter == ""):
         report = list()
         report.append(["Solver","SCR","PAR2", "PAR2-norm","SAT","UNSAT"])
         for u in range(len(results)):            
